@@ -1,4 +1,5 @@
 SELECT
+    'ABC' AS X,
     SRC."Currency" AS CURRENCY,
     SRC."Currency Unit" AS CURRENCY_UNIT,
     SRC."Frequency" AS FREQUENCY,
@@ -6,5 +7,5 @@ SELECT
     SRC."Value" AS VALUE,
     'Knoema.FX Rates' AS DATA_SOURCE_NAME,
     SRC.*
-FROM {{source('economy_data_atlas','exratescc2018')}} 
-AS SRC
+FROM {{source('economy_data_atlas','exratescc2018')}}
+    AS SRC

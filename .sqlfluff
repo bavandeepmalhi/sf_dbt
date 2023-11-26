@@ -13,7 +13,7 @@ dialect = snowflake
 # One of [dbt|raw|jinja|python|placeholder]
 templater = dbt
 # Comma separated list of rules to check, default to all
-rules = AL01, AL02, AL03, AL04, AL05, AL06, AM03, AM04, AM05, AM06, AM07, CP01, CP02, CP03, CP04, CP05, CV01, CV02, CV03, CV05, CV07, CV10, CV11, LT01, LT02, LT04, LT06, LT07, LT08, LT10, LT11, LT12, LT13, RF01, RF02, RF03, RF04, RF05, ST03, ST04, ST05, ST07, ST08
+rules = AL01, AL02, AL03, AL04, AL05, AL06, AM03, AM04, AM05, AM06, AM07, CP01, CP02, CP03, CP04, CP05, CV01, CV02, CV03, CV05, CV07, CV10, CV11, LT01, LT02, LT04, LT06, LT07, LT08, LT10, LT11, LT12, LT13, RF01, ST03, ST04, ST05, ST07, ST08
 # Comma separated list of rules to exclude, or None
 # exclude_rules = LT05
 
