@@ -1,10 +1,10 @@
-WITH cst AS
-(
-SELECT company_ticker, company_name, stock_exchange_name, indicator_name, date, value , data_source_name
-  FROM {{ref('base_knoema_stock_history')}} src
- WHERE indicator_name IN ('Close', 'Open','High','Low', 'Volume', 'Change %') 
+WITH CST AS (
+    SELECT COMPANY_TICKER, COMPANY_NAME, STOCK_EXCHANGE_NAME, INDICATOR_NAME, DATE, VALUE, DATA_SOURCE_NAME
+    FROM {{ref('base_knoema_stock_history')}}
+    WHERE INDICATOR_NAME IN ('Close', 'Open', 'High', 'Low', 'Volume', 'Change %')
 )
-SELECT * 
-  FROM cst
-  PIVOT(SUM(Value) for indicator_name IN ('Close', 'Open','High','Low', 'Volume', 'Change %')) 
-  AS p(company_ticker, company_name, stock_exchange_name, date, data_source_name, close ,open ,high,low,volume,change)
+
+SELECT *
+FROM CST
+PIVOT (SUM(VALUE) FOR INDICATOR_NAME IN ('Close', 'Open', 'High', 'Low', 'Volume', 'Change %'))
+    AS P (COMPANY_TICKER, COMPANY_NAME, STOCK_EXCHANGE_NAME, DATE, DATA_SOURCE_NAME, CLOSE, OPEN, HIGH, LOW, VOLUME, CHANGE)

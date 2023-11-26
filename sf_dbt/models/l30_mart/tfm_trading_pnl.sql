@@ -1,14 +1,17 @@
-SELECT t.instrument, t.stock_exchange_name, 
-       t.date, trader, t.volume,cost, cost_per_share,currency,
-       SUM(cost) OVER(partition BY t.instrument, t.stock_exchange_name, trader ORDER BY t.date rows UNBOUNDED PRECEDING ) cash_cumulative,
-       CASE WHEN t.currency = 'GBP' THEN gbp_close
-            WHEN t.currency = 'EUR' THEN eur_close
-            ELSE close
-       END                                                        AS close_price_matching_ccy,     
-       total_shares  * close_price_matching_ccy                   AS market_value, 
-       total_shares  * close_price_matching_ccy + cash_cumulative AS PnL
-   FROM       {{ref('tfm_daily_position_with_trades')}}    t
-   INNER JOIN {{ref('tfm_stock_history_major_currency')}}  s 
-      ON t.instrument = s.company_ticker 
-     AND s.date = t.date 
-     AND t.stock_exchange_name = s.stock_exchange_name
+SELECT
+    T.INSTRUMENT, T.STOCK_EXCHANGE_NAME,
+    T.DATE, TRADER, T.VOLUME, COST, COST_PER_SHARE, CURRENCY,
+    SUM(COST) OVER (PARTITION BY T.INSTRUMENT, T.STOCK_EXCHANGE_NAME, TRADER ORDER BY T.DATE ROWS UNBOUNDED PRECEDING) AS CASH_CUMULATIVE,
+    CASE
+        WHEN T.CURRENCY = 'GBP' THEN GBP_CLOSE
+        WHEN T.CURRENCY = 'EUR' THEN EUR_CLOSE
+        ELSE CLOSE
+    END AS CLOSE_PRICE_MATCHING_CCY,
+    TOTAL_SHARES * CLOSE_PRICE_MATCHING_CCY AS MARKET_VALUE,
+    TOTAL_SHARES * CLOSE_PRICE_MATCHING_CCY + CASH_CUMULATIVE AS PNL
+FROM {{ref('tfm_daily_position_with_trades')}} AS T
+INNER JOIN {{ref('tfm_stock_history_major_currency')}} AS S
+    ON
+        T.INSTRUMENT = S.COMPANY_TICKER
+        AND S.DATE = T.DATE
+        AND T.STOCK_EXCHANGE_NAME = S.STOCK_EXCHANGE_NAME

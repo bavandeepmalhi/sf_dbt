@@ -1,30 +1,34 @@
-SELECT book
-     , date
-     , trader
-     , instrument
-     , action
-     , cost
-     , currency
-     , volume
-     , cost_per_share
-     , stock_exchange_name
-     , SUM(t.volume) OVER(partition BY t.instrument, t.stock_exchange_name, trader ORDER BY t.date rows UNBOUNDED PRECEDING ) total_shares
-  FROM {{ref('tfm_book')}}  t
-UNION ALL   
-SELECT book
-     , date
-     , trader
-     , instrument
-     , 'HOLD' as action
-     , 0 AS cost
-     , currency
-     , 0      as volume
-     , 0      as cost_per_share
-     , stock_exchange_name
-     , total_shares
-FROM {{ref('tfm_daily_position')}} 
-WHERE (date,trader,instrument,book,stock_exchange_name) 
-      NOT IN 
-      (SELECT date,trader,instrument,book,stock_exchange_name
-         FROM {{ref('tfm_book')}}
-      )
+SELECT
+    BOOK,
+    DATE,
+    TRADER,
+    INSTRUMENT,
+    ACTION,
+    COST,
+    CURRENCY,
+    VOLUME,
+    COST_PER_SHARE,
+    STOCK_EXCHANGE_NAME,
+    SUM(T.VOLUME) OVER (PARTITION BY T.INSTRUMENT, T.STOCK_EXCHANGE_NAME, TRADER ORDER BY T.DATE ROWS UNBOUNDED PRECEDING) AS TOTAL_SHARES
+FROM {{ref('tfm_book')}} AS T
+UNION ALL
+SELECT
+    BOOK,
+    DATE,
+    TRADER,
+    INSTRUMENT,
+    'HOLD' AS ACTION,
+    0 AS COST,
+    CURRENCY,
+    0 AS VOLUME,
+    0 AS COST_PER_SHARE,
+    STOCK_EXCHANGE_NAME,
+    TOTAL_SHARES
+FROM {{ref('tfm_daily_position')}}
+WHERE
+    (DATE, TRADER, INSTRUMENT, BOOK, STOCK_EXCHANGE_NAME)
+    NOT IN
+    (
+        SELECT DATE, TRADER, INSTRUMENT, BOOK, STOCK_EXCHANGE_NAME
+        FROM {{ref('tfm_book')}}
+    )

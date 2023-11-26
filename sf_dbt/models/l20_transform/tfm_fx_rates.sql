@@ -4,8 +4,9 @@ config(
 	  , tags=["Reference Data"]
 	  ) 
 }}
-SELECT src.* 
-  FROM {{ref('base_knoema_fx_rates')}} src
- WHERE "Indicator Name" = 'Close' 
-   AND "Frequency"      = 'D' 
-   AND "Date"           > '2016-01-01'
+SELECT SRC.*
+FROM {{ref('base_knoema_fx_rates')}} AS SRC
+WHERE
+    SRC."Indicator Name" = 'Close'
+    AND SRC."Frequency" = 'D'
+    AND SRC."Date" > '2016-01-01'

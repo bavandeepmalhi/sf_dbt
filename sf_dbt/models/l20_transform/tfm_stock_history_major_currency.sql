@@ -1,16 +1,18 @@
-SELECT tsh.*
-     , fx_gbp.value * open          AS gbp_open      
-     , fx_gbp.value * high			AS gbp_high		
-     , fx_gbp.value * low           AS gbp_low      
-     , fx_gbp.value * close         AS gbp_close    
-     , fx_eur.value * open          AS eur_open      
-     , fx_eur.value * high			AS eur_high		
-     , fx_eur.value * low           AS eur_low      
-     , fx_eur.value * close         AS eur_close    
-  FROM {{ref('tfm_stock_history')}} tsh
-     , {{ref('tfm_fx_rates')}}      fx_gbp
-     , {{ref('tfm_fx_rates')}}      fx_eur
- WHERE fx_gbp.currency              = 'USD/GBP'     
-   AND fx_eur.currency              = 'USD/EUR'     
-   AND tsh.date                     = fx_gbp.date
-   AND tsh.date                     = fx_eur.date
+SELECT
+    TSH.*,
+    FX_GBP.VALUE * OPEN AS GBP_OPEN,
+    FX_GBP.VALUE * HIGH AS GBP_HIGH,
+    FX_GBP.VALUE * LOW AS GBP_LOW,
+    FX_GBP.VALUE * CLOSE AS GBP_CLOSE,
+    FX_EUR.VALUE * OPEN AS EUR_OPEN,
+    FX_EUR.VALUE * HIGH AS EUR_HIGH,
+    FX_EUR.VALUE * LOW AS EUR_LOW,
+    FX_EUR.VALUE * CLOSE AS EUR_CLOSE
+FROM {{ref('tfm_stock_history')}} AS TSH,
+    {{ref('tfm_fx_rates')}} AS FX_GBP,
+    {{ref('tfm_fx_rates')}} AS FX_EUR
+WHERE
+    FX_GBP.CURRENCY = 'USD/GBP'
+    AND FX_EUR.CURRENCY = 'USD/EUR'
+    AND TSH.DATE = FX_GBP.DATE
+    AND TSH.DATE = FX_EUR.DATE
