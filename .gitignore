@@ -155,7 +155,7 @@ cython_debug/
 # dbt
 logs/
 profiles.yml
-sf_dbt/dbt_packages
+dbt_packages
 .user.yml
 target/
 
