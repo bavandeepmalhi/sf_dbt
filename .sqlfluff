@@ -63,7 +63,7 @@ apply_dbt_builtins = True
 
 [sqlfluff:templater:dbt]
 project_dir = .
-profiles_dir = profile
+profiles_dir = profiles
 dialect = snowflake
 
 [sqlfluff:layout:type:comma]
