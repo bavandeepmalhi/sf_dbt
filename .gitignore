@@ -159,6 +159,8 @@ dbt_packages
 .user.yml
 target/
 
+# other
+.DS_Store
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
