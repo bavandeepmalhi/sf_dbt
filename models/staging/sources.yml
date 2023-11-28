@@ -1,13 +1,6 @@
 version: 2
 
 sources:
-  - name: economy_data_atlas
-    database: economy_data_atlas
-    schema: economy
-    tables:
-      - name: exratescc2018
-      - name: usindssp2020
-
   - name: tpch
     description: source tpch data
     database: snowflake_sample_data
