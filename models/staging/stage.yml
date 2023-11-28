@@ -5,42 +5,30 @@ name: sf_dbt
 sf_dbt:
   models:
     staging:
+      materialized: view
+      tags: ['stage']
+      +schema: staging
+
       stage_customer:
-        materialized: view
         primary_key: [c_custkey]
-        tags: ['stage']
 
       stage_line_item:
-        materialized: view
         primary_key: [l_orderkey, l_partkey, l_suppkey]
-        tags: ['stage']
 
       stage_nation:
-        materialized: view
         primary_key: [c_custkey]
-        tags: ['stage']
 
       stage_orders:
-        materialized: view
         primary_key: [o_orderkey]
-        tags: ['stage']
 
       stage_parts:
-        materialized: view
         primary_key: [p_partkey]
-        tags: ['stage']
 
       stage_part_suppliers:
-        materialized: view
         primary_key: [ps_partkey, ps_suppkey]
-        tags: ['stage']
 
       stage_region:
-        materialized: view
         primary_key: [r_regionkey]
-        tags: ['stage']
 
       stage_suppliers:
-        materialized: view
         primary_key: [s_suppkey]
-        tags: ['stage']

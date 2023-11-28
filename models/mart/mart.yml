@@ -1,0 +1,10 @@
+version: 2
+
+name: sf_dbt
+
+sf_dbt:
+  models:
+    mart:
+      +schema: mart
+      materialized: view
+      tags: ['mart']
