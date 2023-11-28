@@ -16,7 +16,7 @@ LINE_ITEMS AS (
 
 SELECT
 
-    'o.order_key' || 'l.line_number' AS ORDER_ITEM_KEY,
+    (O.ORDER_KEY || L.LINE_NUMBER) AS ORDER_ITEM_KEY,
 
     O.ORDER_KEY,
     O.ORDER_DATE,

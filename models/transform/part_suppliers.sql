@@ -29,7 +29,7 @@ PART_SUPPLIERS AS (
 
 SELECT
 
-    'p.part_key' || 's.supplier_key' AS PART_SUPPLIER_KEY,
+    (P.PART_KEY || S.SUPPLIER_KEY) AS PART_SUPPLIER_KEY,
 
     P.PART_KEY,
     P.PART_NAME,
