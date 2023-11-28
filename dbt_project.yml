@@ -27,6 +27,136 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
+sources:
+  - name: tpch
+    description: source tpch data
+    database: snowflake_sample_data
+    schema: tpch_sf1
+    tables:
+
+      - name: orders
+        description: main order tracking table
+        columns:
+          - name: o_orderkey
+            description: SF*1,500,000 are sparsely populated
+            tests:
+              - unique
+              - not_null
+          - name: o_custkey
+            description: Foreign Key to C_CUSTKEY
+            tests:
+              - relationships:
+                  to: source('tpch', 'customer')
+                  field: c_custkey
+
+      - name: lineitem
+        description: main lineitem table
+        primary_key: [l_orderkey, l_partkey, l_suppkey]
+        columns:
+          - name: l_orderkey
+            description: Foreign Key to o_orderkey
+            tests:
+              - relationships:
+                  to: source('tpch', 'orders')
+                  field: o_orderkey
+          - name: l_partkey
+            description: Foreign Key to p_partkey
+            tests:
+              - relationships:
+                  to: source('tpch', 'part')
+                  field: p_partkey
+          - name: l_suppkey
+            description: Foreign Key to s_suppkey
+            tests:
+              - relationships:
+                  to: source('tpch', 'supplier')
+                  field: s_suppkey
+
+      - name: customer
+        description: main customer table
+        primary_key: c_custkey
+        columns:
+          - name: c_custkey
+            description: Primary Key
+            tests:
+              - unique
+              - not_null
+          - name: c_nationkey
+            description: Foreign Key to r_nationkey
+            tests:
+              - relationships:
+                  to: source('tpch', 'nation')
+                  field: n_nationkey
+
+      - name: partsupp
+        description: main part supplier table
+        primary_key: [p_partkey, p_suppkey]
+        columns:
+          - name: ps_partkey
+            description: Foreign Key to p_partkey
+            tests:
+              - relationships:
+                  to: source('tpch', 'part')
+                  field: p_partkey
+          - name: ps_suppkey
+            description: Foreign Key to s_suppkey
+            tests:
+              - relationships:
+                  to: source('tpch', 'supplier')
+                  field: s_suppkey
+
+      - name: part
+        description: main part table
+        primary_key: p_partkey
+        columns:
+          - name: p_partkey
+            description: Primary Key
+            tests:
+              - unique
+              - not_null
+
+      - name: supplier
+        description: main supplier table
+        primary_key: s_suppkey
+        columns:
+          - name: s_suppkey
+            description: Primary Key
+            tests:
+              - unique
+              - not_null
+          - name: s_nationkey
+            description: Foreign Key to n_nationkey
+            tests:
+              - relationships:
+                  to: source('tpch', 'nation')
+                  field: n_nationkey
+
+      - name: nation
+        description: main nation table
+        primary_key: n_nationkey
+        columns:
+          - name: n_nationkey
+            description: Primary Key
+            tests:
+              - unique
+              - not_null
+          - name: n_regionkey
+            description: Foreign Key to r_regionkey
+            tests:
+              - relationships:
+                  to: source('tpch', 'region')
+                  field: r_regionkey
+
+      - name: region
+        description: main region table
+        primary_key: r_regionkey
+        columns:
+          - name: r_regionkey
+            description: Primary Key
+            tests:
+              - unique
+              - not_null
+
 
 # In this example config, we tell dbt to build all models in the example/
 # directory as views. These settings can be overridden in the individual model
