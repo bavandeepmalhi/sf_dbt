@@ -10,7 +10,7 @@ RENAMED AS (
 
     SELECT
 
-        ('l_orderkey' || 'l_linenumber') AS ORDER_ITEM_KEY,
+        (L_ORDERKEY || L_LINENUMBER) AS ORDER_ITEM_KEY,
         L_ORDERKEY AS ORDER_KEY,
         L_PARTKEY AS PART_KEY,
         L_SUPPKEY AS SUPPLIER_KEY,
