@@ -5,43 +5,34 @@ name: sf_dbt
 sf_dbt:
   models:
     transform:
+      +schema: transform
+      materialized: view
+      tags: ['transform']
+
       customers:
-        materialized: view
         primary_key: [customer_key]
-        tags: ['transform']
 
       int_order_items:
         materialized: ephemeral
         primary_key: [order_item_key]
-        tags: ['transform']
 
       order_items:
         primary_key: [order_item_key]
-        tags: ['transform']
 
       nations:
-        materialized: view
         primary_key: [nation_key]
-        tags: ['transform']
 
       orders:
-        materialized: view
         primary_key: [order_key]
-        tags: ['transform']
 
       part_suppliers:
-        materialized: view
         primary_key: [part_supplier_key]
-        tags: ['transform']
 
       parts:
         primary_key: [part_key]
-        tags: ['transform']
 
       regions:
         primary_key: [region_key]
-        tags: ['transform']
 
       suppliers:
         primary_key: [supplier_key]
-        tags: ['transform']
