@@ -10,7 +10,7 @@ sf_dbt:
         primary_key: [c_custkey]
         tags: ['stage']
 
-      stage_lineitem:
+      stage_line_item:
         materialized: view
         primary_key: [l_orderkey, l_partkey, l_suppkey]
         tags: ['stage']
@@ -25,12 +25,12 @@ sf_dbt:
         primary_key: [o_orderkey]
         tags: ['stage']
 
-      stage_part:
+      stage_parts:
         materialized: view
         primary_key: [p_partkey]
         tags: ['stage']
 
-      stage_partsupp:
+      stage_part_suppliers:
         materialized: view
         primary_key: [ps_partkey, ps_suppkey]
         tags: ['stage']
@@ -40,7 +40,7 @@ sf_dbt:
         primary_key: [r_regionkey]
         tags: ['stage']
 
-      stage_supplier:
+      stage_suppliers:
         materialized: view
         primary_key: [s_suppkey]
         tags: ['stage']

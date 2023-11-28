@@ -19,8 +19,6 @@ repos:
           - sqlfluff-templater-dbt==2.3.5
       - id: sqlfluff-fix
         args: ['--dialect', 'snowflake']
-        stages:
-          - manual
         additional_dependencies:
           - dbt-snowflake==1.7.0
           - sqlfluff-templater-dbt==2.3.5

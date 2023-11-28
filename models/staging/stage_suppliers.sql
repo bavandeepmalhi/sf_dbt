@@ -1,0 +1,25 @@
+WITH SOURCE AS (
+
+    SELECT
+        *
+    FROM {{ source('tpch', 'supplier') }}
+
+),
+
+RENAMED AS (
+
+    SELECT
+
+        S_SUPPKEY AS SUPPLIER_KEY,
+        S_NAME AS SUPPLIER_NAME,
+        S_ADDRESS AS SUPPLIER_ADDRESS,
+        S_NATIONKEY AS NATION_KEY,
+        S_PHONE AS PHONE_NUMBER,
+        S_ACCTBAL AS ACCOUNT_BALANCE,
+        S_COMMENT AS COMMENT
+
+    FROM SOURCE
+
+)
+
+SELECT * FROM RENAMED
