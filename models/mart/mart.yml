@@ -10,6 +10,7 @@ sf_dbt:
       tags: ['mart']
 
       fct_orders:
+        +tags: ['dimension']
         columns:
           - name: order_key
             description: unique key for each order from source system
@@ -67,6 +68,7 @@ sf_dbt:
               - not_null
 
       fct_order_items:
+        +tags: ['fact']
         columns:
           - name: order_item_key
             description: unique key for each order item
@@ -209,6 +211,7 @@ sf_dbt:
               - not_null
 
       dim_customer:
+        +tags: ['dimension']
         columns:
           - name: customer_key
             description: unique key for each order item
@@ -217,6 +220,7 @@ sf_dbt:
               - not_null
 
       dim_part_supplier_xrf:
+        +tags: ['dimension']
         columns:
           - name: part_supplier_key
             description: unique key for each part and supplier
@@ -225,6 +229,7 @@ sf_dbt:
               - not_null
 
       dim_part:
+        +tags: ['dimension']
         columns:
           - name: part_key
             description: unique key for each part
@@ -233,6 +238,7 @@ sf_dbt:
               - not_null
 
       dim_supplier:
+        +tags: ['dimension']
         columns:
           - name: supplier_key
             description: unique key for each supplier
