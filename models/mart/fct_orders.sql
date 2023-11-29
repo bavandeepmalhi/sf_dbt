@@ -1,0 +1,61 @@
+{{
+    config(
+        materialized = 'table'
+    )
+}}
+WITH ORDERS AS (
+
+    SELECT * FROM {{ ref('orders') }}
+
+),
+
+ORDER_ITEMS AS (
+
+    SELECT * FROM {{ ref('order_items') }}
+
+),
+
+ORDER_ITEM_SUMMARY AS (
+
+    SELECT
+        O.ORDER_KEY,
+        SUM(O.GROSS_ITEM_SALES_AMOUNT) AS GROSS_ITEM_SALES_AMOUNT,
+        SUM(O.ITEM_DISCOUNT_AMOUNT) AS ITEM_DISCOUNT_AMOUNT,
+        SUM(O.ITEM_TAX_AMOUNT) AS ITEM_TAX_AMOUNT,
+        SUM(O.NET_ITEM_SALES_AMOUNT) AS NET_ITEM_SALES_AMOUNT
+    FROM ORDER_ITEMS AS O
+    GROUP BY
+        O.ORDER_KEY
+),
+
+FINAL AS (
+
+    SELECT
+
+        O.ORDER_KEY,
+        O.ORDER_DATE,
+        O.CUSTOMER_KEY,
+        O.ORDER_STATUS_CODE,
+        O.ORDER_PRIORITY_CODE,
+        O.ORDER_CLERK_NAME,
+        O.ORDER_SHIPPING_PRIORITY,
+
+        1 AS ORDER_COUNT,
+        S.GROSS_ITEM_SALES_AMOUNT,
+        S.ITEM_DISCOUNT_AMOUNT,
+        S.ITEM_TAX_AMOUNT,
+        S.NET_ITEM_SALES_AMOUNT
+    FROM
+        ORDERS AS O
+    INNER JOIN
+        ORDER_ITEM_SUMMARY AS S
+        ON O.ORDER_KEY = S.ORDER_KEY
+)
+
+SELECT
+    F.*,
+    {{ dbt_housekeeping() }}
+FROM
+    FINAL AS F
+ORDER BY
+    F.ORDER_DATE
