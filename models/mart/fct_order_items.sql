@@ -33,7 +33,7 @@ FINAL AS (
         O.RECEIPT_DATE,
         O.SHIP_MODE_NAME,
         PS.SUPPLIER_COST,
-        {# ps.retail_price, #}
+        PS.RETAIL_PRICE,
         O.BASE_PRICE,
         O.DISCOUNT_PERCENTAGE,
         O.DISCOUNTED_PRICE,
