@@ -10,7 +10,7 @@ sf_dbt:
       tags: ['mart']
 
       fct_orders:
-        +tags: ['dimension']
+        +tags: ['fact']
         columns:
           - name: order_key
             description: unique key for each order from source system
