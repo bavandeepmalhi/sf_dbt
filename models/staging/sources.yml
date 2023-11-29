@@ -68,10 +68,10 @@ sources:
               - not_null
           - name: o_custkey
             description: Foreign Key to c_custkey
-            # tests:
-            #   - relationships:
-            #       to: source('tpch', 'customer')
-            #       field: c_custkey
+            tests:
+              - relationships:
+                  to: source('tpch', 'customer')
+                  field: c_custkey
 
       - name: supplier
         description: main supplier table
