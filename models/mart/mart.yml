@@ -207,3 +207,52 @@ sf_dbt:
             description: total amount after discounts and taxes
             tests:
               - not_null
+
+      dim_customer:
+        columns:
+          - name: customer_key
+            description: unique key for each order item
+            tests:
+              - unique
+              - not_null
+
+      dim_part_supplier_xrf:
+        columns:
+          - name: part_supplier_key
+            description: unique key for each part and supplier
+            tests:
+              - unique
+              - not_null
+
+      dim_part:
+        columns:
+          - name: part_key
+            description: unique key for each part
+            tests:
+              - unique
+              - not_null
+
+      dim_supplier:
+        columns:
+          - name: supplier_key
+            description: unique key for each supplier
+            tests:
+              - unique
+              - not_null
+
+      rpt_minimum_cost_suppliers:
+        +tags: ['report']
+        columns:
+          - name: supplier_cost_rank
+            description: rank for each part supplied by the supplier per region
+            tests:
+              - not_null
+
+      rpt_pricing_summary:
+        +tags: ['report']
+        columns:
+          - name: ORDER_LINE_STATUS_CODE
+            description: status code for each order line
+            tests:
+              - not_null
+              - unique
