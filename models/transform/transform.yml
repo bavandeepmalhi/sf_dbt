@@ -1,44 +1,61 @@
 version: 2
 
-name: sf_dbt
+models:
+  - name: customers
+    schema: transform
+    materialized: view
+    tags: ['transform']
+    primary_key: [customer_key]
+    columns:
+      - name: CUSTOMER_KEY
+        description: unique key for each order for customer
+        tests:
+          - dbt_expectations.expect_column_values_to_be_unique
 
-sf_dbt:
-  models:
-    transform:
-      +schema: transform
-      materialized: view
-      tags: ['transform']
+  - name: int_order_items
+    schema: transform
+    tags: ['transform']
+    materialized: ephemeral
+    primary_key: [order_item_key]
 
-      customers:
-        primary_key: [customer_key]
-        columns:
-          - name: CUSTOMER_KEY
-            description: unique key for each order for customer
-            tests:
-              - dbt_expectations.expect_column_values_to_be_unique:
-                  row_condition: "id is not null"
+  - name: order_items
+    schema: transform
+    materialized: view
+    tags: ['transform']
+    primary_key: [order_item_key]
 
-      int_order_items:
-        materialized: ephemeral
-        primary_key: [order_item_key]
+  - name: nations
+    schema: transform
+    materialized: view
+    tags: ['transform']
+    primary_key: [nation_key]
 
-      order_items:
-        primary_key: [order_item_key]
+  - name: orders
+    schema: transform
+    materialized: view
+    tags: ['transform']
+    primary_key: [order_key]
 
-      nations:
-        primary_key: [nation_key]
+  - name: part_suppliers
+    schema: transform
+    materialized: view
+    tags: ['transform']
+    primary_key: [part_supplier_key]
 
-      orders:
-        primary_key: [order_key]
+  - name: parts
+    schema: transform
+    materialized: view
+    tags: ['transform']
+    primary_key: [part_key]
 
-      part_suppliers:
-        primary_key: [part_supplier_key]
+  - name: regions
+    schema: transform
+    materialized: view
+    tags: ['transform']
+    primary_key: [region_key]
 
-      parts:
-        primary_key: [part_key]
-
-      regions:
-        primary_key: [region_key]
-
-      suppliers:
-        primary_key: [supplier_key]
+  - name: suppliers
+    schema: transform
+    materialized: view
+    tags: ['transform']
+    primary_key: [supplier_key]
