@@ -4,3 +4,6 @@ packages:
 
   - package: calogica/dbt_expectations
     version: 0.10.1
+
+  - package: entechlog/dbt_snow_mask
+    version: 0.2.4

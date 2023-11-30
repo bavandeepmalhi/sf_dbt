@@ -246,6 +246,10 @@ models:
         tests:
           - unique
           - not_null
+      - name: supplier_address
+        description: Address for each supplier
+        meta:
+          masking_policy: mp_encrypt_pii
 
   - name: rpt_minimum_cost_suppliers
     schema: mart
