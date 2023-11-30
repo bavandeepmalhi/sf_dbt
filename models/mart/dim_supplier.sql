@@ -1,8 +1,7 @@
-{{
-    config(
-        materialized = 'table'
-    )
-}}
+{{ config(
+  materialized='table'
+) }}
+
 WITH SUPPLIERS AS (
 
     SELECT * FROM {{ ref('suppliers') }}
