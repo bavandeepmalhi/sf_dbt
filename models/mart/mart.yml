@@ -271,3 +271,6 @@ models:
         tests:
           - not_null
           - unique
+        meta:
+          database_tags:
+            status_tag_string: a
