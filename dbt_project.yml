@@ -27,6 +27,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 on-run-start:
   - "{{ dbt_snow_mask.create_masking_policy('models') }}"
 
+on-run-end:
+  - "{{ snowflake_utils.apply_meta_as_tags(results) }}"
+
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
