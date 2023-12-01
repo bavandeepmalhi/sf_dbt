@@ -8,4 +8,7 @@ packages:
   - package: calogica/dbt_date
     version: 0.10.0
 
+  - package: Montreal-Analytics/snowflake_utils
+    version: 0.6.1
+
 sha1_hash: c6f3163cb16228c5b6bcba3a481a850fc747416d

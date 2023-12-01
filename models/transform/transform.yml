@@ -35,6 +35,9 @@ models:
     materialized: view
     tags: ['transform']
     primary_key: [order_key]
+    tests:  #This dbt expectation performs exactly the same function as the designed assertion in the tests folder
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: ref("stage_orders")
 
   - name: part_suppliers
     schema: transform
