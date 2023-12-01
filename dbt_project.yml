@@ -24,6 +24,9 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
+on-run-start:
+  - "{{ dbt_snow_mask.create_masking_policy('models') }}"
+
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
@@ -32,8 +35,11 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 vars:
   max_ship_date: "'1998-12-01'"
+  use_force_applying_masking_policy: "True"
 
 models:
+  post-hook:
+    - "{{ dbt_snow_mask.apply_masking_policy('models') }}"
   sf_dbt:
     staging:
       +schema: staging
